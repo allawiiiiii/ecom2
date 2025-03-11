@@ -12,66 +12,48 @@ public class Main {
     }
 
     private static void createAndShowGUI() {
-        JFrame frame = new JFrame("E-commerce Management");
+        JFrame frame = new JFrame("E-com");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
 
-        // Use a tabbed pane to separate sections
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        // ========== Product Management Tab ==========
+        //Product Tab
         tabbedPane.addTab("Products", createProductPanel());
 
-        // ========== Customer Management Tab ==========
+        //Customer Tab
         tabbedPane.addTab("Customers", createCustomerPanel());
 
-        // ========== Order Management Tab ==========
+        //Order Tab
         tabbedPane.addTab("Orders", createOrderPanel());
 
         frame.add(tabbedPane);
         frame.setVisible(true);
     }
 
-    // ------------------ PRODUCT PANEL ------------------
+    //PRODUCT PANEL
     private static JPanel createProductPanel() {
         JPanel productPanel = new JPanel(new BorderLayout());
 
-        // Top inputs
+        //Top tabs
         JPanel inputPanel = new JPanel();
 
         JTextField prodNameField = new JTextField(8);
         JTextField prodPriceField = new JTextField(5);
         JTextField prodStockField = new JTextField(5);
 
-        JButton addProductButton = new JButton("Add");
         JButton listProductsButton = new JButton("List All");
         JTextField searchField = new JTextField(6);
         JButton searchButton = new JButton("Search");
         JButton updateStockButton = new JButton("Update Stock");
 
-        // Center text area
+        //Center text
         JTextArea productArea = new JTextArea();
         productArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(productArea);
 
-        // Add product
-        addProductButton.addActionListener(e -> {
-            String name = prodNameField.getText().trim();
-            String priceText = prodPriceField.getText().trim();
-            String stockText = prodStockField.getText().trim();
 
-            try {
-                double price = Double.parseDouble(priceText);
-                int stock = Integer.parseInt(stockText);
-
-                productService.addProduct(name, price, stock);
-                JOptionPane.showMessageDialog(productPanel, "Product added!");
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(productPanel, "Invalid price or stock.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-
-        // List all products
+        //List all products
         listProductsButton.addActionListener(e -> {
             List<String> products = productService.getAllProducts();
             productArea.setText("");
@@ -84,7 +66,7 @@ public class Main {
             }
         });
 
-        // Search products
+        //Search products
         searchButton.addActionListener(e -> {
             String keyword = searchField.getText().trim();
             productArea.setText("");
@@ -102,7 +84,7 @@ public class Main {
             }
         });
 
-        // Update stock
+        //Update stock
         updateStockButton.addActionListener(e -> {
             String productName = JOptionPane.showInputDialog(productPanel, "Enter product name:");
             if (productName != null && !productName.trim().isEmpty()) {
@@ -119,14 +101,7 @@ public class Main {
             }
         });
 
-        // Assemble input panel
-        inputPanel.add(new JLabel("Name:"));
-        inputPanel.add(prodNameField);
-        inputPanel.add(new JLabel("Price:"));
-        inputPanel.add(prodPriceField);
-        inputPanel.add(new JLabel("Stock:"));
-        inputPanel.add(prodStockField);
-        inputPanel.add(addProductButton);
+        //Input panel
         inputPanel.add(listProductsButton);
 
         inputPanel.add(new JLabel("Search:"));
@@ -141,7 +116,7 @@ public class Main {
         return productPanel;
     }
 
-    // ------------------ CUSTOMER PANEL ------------------
+    //CUSTOMER PANEL
     private static JPanel createCustomerPanel() {
         JPanel customerPanel = new JPanel(new BorderLayout());
 
@@ -157,7 +132,7 @@ public class Main {
         customerArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(customerArea);
 
-        // Register customer
+        //Register customer, automatically set password to "password"
         registerButton.addActionListener(e -> {
             String name = custNameField.getText().trim();
             String email = custEmailField.getText().trim();
@@ -166,11 +141,13 @@ public class Main {
                 JOptionPane.showMessageDialog(customerPanel, "Enter name and email.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            customerService.registerCustomer(name, email);
-            JOptionPane.showMessageDialog(customerPanel, "Customer registered!");
+            //Create a Customer with default password "password"
+            Customer customer = new Customer(name, "password", email);
+            customerService.registerCustomer(customer);
+            JOptionPane.showMessageDialog(customerPanel, "Customer registered!\nDefault password is \"password\".");
         });
 
-        // Update customer email
+        // Update customer email remains unchanged
         updateEmailButton.addActionListener(e -> {
             String name = custNameField.getText().trim();
             String newEmail = custEmailField.getText().trim();
@@ -216,7 +193,7 @@ public class Main {
         orderArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(orderArea);
 
-        // Create Order
+        //Create Order
         createOrderButton.addActionListener(e -> {
             String custName = orderCustField.getText().trim();
             String prodName = orderProdField.getText().trim();
@@ -233,13 +210,13 @@ public class Main {
                 return;
             }
 
-            // Check if customer exists
+            //Check if customer exists
             if (!customerService.customerExists(custName)) {
                 JOptionPane.showMessageDialog(orderPanel, "Customer not found! Register first.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Attempt to create the order
+            //Create the order
             try {
                 orderService.createOrder(custName, prodName, quantity);
                 JOptionPane.showMessageDialog(orderPanel, "Order created successfully!");
@@ -248,23 +225,6 @@ public class Main {
             }
         });
 
-        // Order History
-        historyButton.addActionListener(e -> {
-            String custName = JOptionPane.showInputDialog(orderPanel, "Enter customer name:");
-            if (custName != null && !custName.trim().isEmpty()) {
-                List<String> history = orderService.getOrderHistory(custName);
-                orderArea.setText("");
-                if (history.isEmpty()) {
-                    orderArea.append("No orders found for: " + custName);
-                } else {
-                    for (String record : history) {
-                        orderArea.append(record + "\n");
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(orderPanel, "Please enter a valid customer name.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
 
         inputPanel.add(new JLabel("Customer:"));
         inputPanel.add(orderCustField);
