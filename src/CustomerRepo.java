@@ -14,7 +14,10 @@ public class CustomerRepo {
             stmt.setString(2, customer.getPassword());
             stmt.setString(3, customer.getEmail());
             stmt.executeUpdate();
-
+            // Commit if auto-commit is disabled
+            if (!conn.getAutoCommit()) {
+                conn.commit();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

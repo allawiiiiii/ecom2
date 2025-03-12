@@ -17,7 +17,7 @@ public class OrderRepo {
             int productId;
             int currentStock;
 
-            //hämta kund ID
+            // Fetch customer ID
             try (PreparedStatement stmt = conn.prepareStatement(findCustomerSql)) {
                 stmt.setString(1, customerName);
                 ResultSet rs = stmt.executeQuery();
@@ -29,7 +29,7 @@ public class OrderRepo {
                 }
             }
 
-            //hämta produkt ID + lagerstatus
+            // Fetch product ID + stock
             try (PreparedStatement stmt = conn.prepareStatement(findProductSql)) {
                 stmt.setString(1, productName);
                 ResultSet rs = stmt.executeQuery();
@@ -42,13 +42,13 @@ public class OrderRepo {
                 }
             }
 
-            //kontrollera lagerstatus
+            // Check stock
             if (currentStock < quantity) {
                 conn.rollback();
                 throw new SQLException("Insufficient stock for product: " + productName);
             }
 
-            //lägg till order
+            // Insert order
             try (PreparedStatement stmt = conn.prepareStatement(insertOrderSql)) {
                 stmt.setInt(1, customerId);
                 stmt.setInt(2, productId);
@@ -56,7 +56,7 @@ public class OrderRepo {
                 stmt.executeUpdate();
             }
 
-            //uppdatera lagerstaus
+            // Update stock
             try (PreparedStatement stmt = conn.prepareStatement(updateStockSql)) {
                 stmt.setInt(1, quantity);
                 stmt.setInt(2, productId);
@@ -69,7 +69,7 @@ public class OrderRepo {
         }
     }
 
-    //visa alla ordrar från DB
+    // Show all orders from the database
     public List<String> getAllOrders() {
         List<String> orders = new ArrayList<>();
 
@@ -108,7 +108,7 @@ public class OrderRepo {
         return orders;
     }
 
-    //visa en viss kunds historik
+    // Show a particular customer's order history
     public List<String> getOrderHistory(String customerName) {
         List<String> history = new ArrayList<>();
         String sql = """
