@@ -7,6 +7,7 @@ import java.util.List;
 public class Customer extends JPanel {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Customer attributes
 =======
     //kund attribut
@@ -14,10 +15,14 @@ public class Customer extends JPanel {
 =======
     // Customer attributes
 >>>>>>> parent of 5892da0 (main)
+=======
+    // Customer attributes
+>>>>>>> parent of 5892da0 (main)
     private String name;
     private String email;
     private String password;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     // Static list to store all registered customers
@@ -36,11 +41,18 @@ public class Customer extends JPanel {
 
     // GUI components for registration
 >>>>>>> parent of 5892da0 (main)
+=======
+    // Static list to store all registered customers
+    private static List<Customer> registeredCustomers = new ArrayList<>();
+
+    // GUI components for registration
+>>>>>>> parent of 5892da0 (main)
     private JTextField nameField;
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton registerButton;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     // Default constructor: builds the registration panel UI
@@ -50,12 +62,18 @@ public class Customer extends JPanel {
 =======
     // Default constructor: builds the registration panel UI
 >>>>>>> parent of 5892da0 (main)
+=======
+    // Default constructor: builds the registration panel UI
+>>>>>>> parent of 5892da0 (main)
     public Customer() {
         buildUI();
     }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 5892da0 (main)
     // Overloaded constructor to initialize customer data (if needed)
     public Customer(String name, String email, String password) {
         this(); // Build UI first
@@ -126,6 +144,7 @@ public class Customer extends JPanel {
     }
 
     // Registration logic: validate and store the customer
+<<<<<<< HEAD
 =======
 =======
     // Overloaded constructor to initialize customer data (if needed)
@@ -204,6 +223,8 @@ public class Customer extends JPanel {
 =======
     // Registration logic: validate and store the customer
 >>>>>>> parent of 5892da0 (main)
+=======
+>>>>>>> parent of 5892da0 (main)
     private void registerCustomer() {
         name = nameField.getText().trim();
         email = emailField.getText().trim();
@@ -211,10 +232,14 @@ public class Customer extends JPanel {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Basic validation
 =======
         //basic validering
 >>>>>>> parent of 68d379a (main)
+=======
+        // Basic validation
+>>>>>>> parent of 5892da0 (main)
 =======
         // Basic validation
 >>>>>>> parent of 5892da0 (main)
@@ -226,10 +251,14 @@ public class Customer extends JPanel {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Check if a customer with this email is already registered
 =======
         //kontrollera ifall kund med samma email finns
 >>>>>>> parent of 68d379a (main)
+=======
+        // Check if a customer with this email is already registered
+>>>>>>> parent of 5892da0 (main)
 =======
         // Check if a customer with this email is already registered
 >>>>>>> parent of 5892da0 (main)
@@ -241,6 +270,9 @@ public class Customer extends JPanel {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 5892da0 (main)
         // Add this customer to the static list
         registeredCustomers.add(this);
         JOptionPane.showMessageDialog(this, "Registration successful!",
@@ -248,6 +280,7 @@ public class Customer extends JPanel {
     }
 
     // Static method to look up a customer by email
+<<<<<<< HEAD
 =======
         //lägg till kund i static list
 =======
@@ -264,6 +297,8 @@ public class Customer extends JPanel {
 =======
     // Static method to look up a customer by email
 >>>>>>> parent of 5892da0 (main)
+=======
+>>>>>>> parent of 5892da0 (main)
     public static Customer findCustomerByEmail(String email) {
         for (Customer customer : registeredCustomers) {
             if (customer.email.equals(email)) {
@@ -275,10 +310,14 @@ public class Customer extends JPanel {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Getters for customer data
 =======
     //Getter för kund data
 >>>>>>> parent of 68d379a (main)
+=======
+    // Getters for customer data
+>>>>>>> parent of 5892da0 (main)
 =======
     // Getters for customer data
 >>>>>>> parent of 5892da0 (main)
