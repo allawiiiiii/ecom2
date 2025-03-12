@@ -18,13 +18,13 @@ public class Main {
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        //Product Tab
+        //produkt Tab
         tabbedPane.addTab("Products", createProductPanel());
 
-        //Customer Tab
+        //kund Tab
         tabbedPane.addTab("Customers", createCustomerPanel());
 
-        //Order Tab
+        //order Tab
         tabbedPane.addTab("Orders", createOrderPanel());
 
         frame.add(tabbedPane);
@@ -35,7 +35,7 @@ public class Main {
     private static JPanel createProductPanel() {
         JPanel productPanel = new JPanel(new BorderLayout());
 
-        //Top tabs
+        //top tabs
         JPanel inputPanel = new JPanel();
 
         JTextField prodNameField = new JTextField(8);
@@ -47,13 +47,13 @@ public class Main {
         JButton searchButton = new JButton("Search");
         JButton updateStockButton = new JButton("Update Stock");
 
-        //Center text
+        //center text
         JTextArea productArea = new JTextArea();
         productArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(productArea);
 
 
-        //List all products
+        //lista alla produkter
         listProductsButton.addActionListener(e -> {
             List<String> products = productService.getAllProducts();
             productArea.setText("");
@@ -66,7 +66,7 @@ public class Main {
             }
         });
 
-        //Search products
+        //sök produkt
         searchButton.addActionListener(e -> {
             String keyword = searchField.getText().trim();
             productArea.setText("");
@@ -84,7 +84,7 @@ public class Main {
             }
         });
 
-        //Update stock
+        //uppdatera lager
         updateStockButton.addActionListener(e -> {
             String productName = JOptionPane.showInputDialog(productPanel, "Enter product name:");
             if (productName != null && !productName.trim().isEmpty()) {
@@ -101,7 +101,7 @@ public class Main {
             }
         });
 
-        //Input panel
+        //input panel
         inputPanel.add(listProductsButton);
 
         inputPanel.add(new JLabel("Search:"));
@@ -132,7 +132,7 @@ public class Main {
         customerArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(customerArea);
 
-        //Register customer, automatically set password to "password"
+        //registrera kund
         registerButton.addActionListener(e -> {
             String name = custNameField.getText().trim();
             String email = custEmailField.getText().trim();
@@ -141,13 +141,13 @@ public class Main {
                 JOptionPane.showMessageDialog(customerPanel, "Enter name and email.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            //Create a Customer with default password "password"
+            //skapa kund med default lösenord "password"
             Customer customer = new Customer(name, "password", email);
             customerService.registerCustomer(customer);
             JOptionPane.showMessageDialog(customerPanel, "Customer registered!\nDefault password is \"password\".");
         });
 
-        // Update customer email remains unchanged
+        //uppdatera email ändras inte
         updateEmailButton.addActionListener(e -> {
             String name = custNameField.getText().trim();
             String newEmail = custEmailField.getText().trim();
@@ -177,7 +177,7 @@ public class Main {
         return customerPanel;
     }
 
-    // ------------------ ORDER PANEL ------------------
+    //ORDER PANEL
     private static JPanel createOrderPanel() {
         JPanel orderPanel = new JPanel(new BorderLayout());
 
@@ -193,7 +193,7 @@ public class Main {
         orderArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(orderArea);
 
-        //Create Order
+        //skapa order
         createOrderButton.addActionListener(e -> {
             String custName = orderCustField.getText().trim();
             String prodName = orderProdField.getText().trim();
@@ -210,13 +210,13 @@ public class Main {
                 return;
             }
 
-            //Check if customer exists
+            //kontrollerar ifall kunden finns
             if (!customerService.customerExists(custName)) {
                 JOptionPane.showMessageDialog(orderPanel, "Customer not found! Register first.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            //Create the order
+            //skapa order
             try {
                 orderService.createOrder(custName, prodName, quantity);
                 JOptionPane.showMessageDialog(orderPanel, "Order created successfully!");

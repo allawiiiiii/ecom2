@@ -10,7 +10,6 @@ public class DatabaseConnection {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(DB_URL);
-                // Ensure auto-commit is enabled
                 connection.setAutoCommit(true);
             } catch (SQLException e) {
                 e.printStackTrace();

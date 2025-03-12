@@ -7,12 +7,12 @@ public class OrderService {
         orderRepo.createOrder(customerName, productName, quantity);
     }
 
-    //Show all orders from the DB
+    //visa alla orders från DB
     public List<String> getAllOrders() {
         return orderRepo.getAllOrders();
     }
 
-    //Show a single customer's order history
+    //visa en kunds historik
     public List<String> getOrderHistory(String customerName) {
         return orderRepo.getOrderHistory(customerName);
     }

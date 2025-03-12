@@ -5,45 +5,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Customer extends JPanel {
-    // Customer attributes
+    //kund attribut
     private String name;
     private String email;
     private String password;
 
-    // Static list to store all registered customers
+    //statisk lista för att spara alla registrerade kunder
     private static List<Customer> registeredCustomers = new ArrayList<>();
 
-    // GUI components for registration
+    //GUI komponenter för registrering
     private JTextField nameField;
     private JTextField emailField;
     private JPasswordField passwordField;
     private JButton registerButton;
 
-    // Default constructor: builds the registration panel UI
+    //constructor
     public Customer() {
         buildUI();
     }
 
-    // Overloaded constructor to initialize customer data (if needed)
     public Customer(String name, String email, String password) {
-        this(); // Build UI first
+        this();
         this.name = name;
         this.email = email;
         this.password = password;
 
-        // Update the text fields with provided data
+        //uppdatera fält
         nameField.setText(name);
         emailField.setText(email);
         passwordField.setText(password);
     }
 
-    // Method to set up the UI components
     private void buildUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Name label and text field
+        //name text fält
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.EAST;
@@ -54,7 +52,7 @@ public class Customer extends JPanel {
         nameField = new JTextField(20);
         add(nameField, gbc);
 
-        // Email label and text field
+        //email text fält
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.EAST;
@@ -65,18 +63,7 @@ public class Customer extends JPanel {
         emailField = new JTextField(20);
         add(emailField, gbc);
 
-        // Password label and text field
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.anchor = GridBagConstraints.EAST;
-        add(new JLabel("Password:"), gbc);
-
-        gbc.gridx = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        passwordField = new JPasswordField(20);
-        add(passwordField, gbc);
-
-        // Register button
+        //registrera knapp
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
@@ -84,7 +71,7 @@ public class Customer extends JPanel {
         registerButton = new JButton("Register");
         add(registerButton, gbc);
 
-        // Handle registration when button is pressed
+        //hanterar registration när knappen trycks
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,33 +80,33 @@ public class Customer extends JPanel {
         });
     }
 
-    // Registration logic: validate and store the customer
+    //spara kund efter registrering
     private void registerCustomer() {
         name = nameField.getText().trim();
         email = emailField.getText().trim();
         password = new String(passwordField.getPassword());
 
-        // Basic validation
+        //basic validering
         if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all fields.",
                     "Registration Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Check if a customer with this email is already registered
+        //kontrollera ifall kund med samma email finns
         if (findCustomerByEmail(email) != null) {
             JOptionPane.showMessageDialog(this, "User with this email already exists.",
                     "Registration Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Add this customer to the static list
+        //lägg till kund i static list
         registeredCustomers.add(this);
-        JOptionPane.showMessageDialog(this, "Registration successful!",
+        JOptionPane.showMessageDialog(this, "Registration successfu",
                 "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    // Static method to look up a customer by email
+    // Static method att söka efter kund via email
     public static Customer findCustomerByEmail(String email) {
         for (Customer customer : registeredCustomers) {
             if (customer.email.equals(email)) {
@@ -129,7 +116,7 @@ public class Customer extends JPanel {
         return null;
     }
 
-    // Getters for customer data
+    //Getter för kund data
     public String getName() {
         return name;
     }
