@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 public class CustomerRepo {
 
-
     public void registerCustomer(Customer customer) {
         Connection conn = DatabaseConnection.getConnection();
         String sql = "INSERT INTO customers (name, password, email) VALUES (?, ?, ?)";
